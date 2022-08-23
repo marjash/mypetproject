@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <title>Advert list</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h2>Оголошення</h2>
+    <form th:action="@{/create/advert}" method="get">
+        <input type="submit" value="Створити нове оголошення">
+    </form>
+    <br>
+    <table>
+        <thead>
+        <tr>
+            <th>№</th>
+            <th>Назва товару</th>
+            <th>Категорія</th>
+            <th>Ціна</th>
+            <th>Місто</th>
+            <th>Телефон</th>
+            <th></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="advert, iStat: ${adverts}">
+            <td th:text="${iStat.index + 1}"></td>
+            <td th:text="${advert.getName()}"></td>
+            <td th:text="${advert.getCategory()}"></td>
+            <td th:text="${advert.getPrice()}"></td>
+            <td th:text="${advert.getCity()}"></td>
+            <td th:text="${advert.getPhone()}"></td>
+            <td>
+                <a th:href="@{|/advert/${advert.getId()}/delete|}"
+                   class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
