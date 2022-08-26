@@ -10,17 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class GreetingController {
 
-    @GetMapping("/reg/form")
-    public String regForm(Model model) {
-        model.addAttribute("person", new User());
-        return "reg_form";
-    }
-
-    @PostMapping("/reg/form")
-    public String regFormSubmit(@ModelAttribute User person, Model model){
-        model.addAttribute("person", person);
-        return "result";
-    }
 
 
 }

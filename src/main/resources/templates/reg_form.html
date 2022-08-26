@@ -5,43 +5,23 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<form action="#" th:action="@{/reg/form}" th:object="${person}" method="post">
+<form action="#" th:action="@{/reg/form}" th:object="${user}" method="post">
   <label for="name">Ім'я</label><br>
   <input type="text" id="name" th:field="*{name}"><br>
   <label for="lname">Прізвище</label><br>
   <input type="text" id="lname" th:field="*{surname}"><br>
   <label for="email">E-mail</label><br>
   <input type="email" id="email" th:field="*{email}"><br>
-  <label for="date">Дата народження</label><br>
-  <input type="date" id="date" name="date" th:field="*{date}"><br>
+  <label for="password">Пароль</label><br>
+  <input type="password" id="password" th:field="*{password}"><br>
+  <label for="dateOfBirth">Дата народження</label><br>
+  <input type="date" id="dateOfBirth" name="dateOfBirth" th:field="*{dateOfBirth}"><br>
     <label for="city">Виберіть Ваше місто:</label>
     <select id="city" name="city" th:field="*{city}">
-      <option value="kyiv">Київ</option>
-      <option value="lviv">Львів</option>
-      <option value="dnipro">Дніпро</option>
-      <option value="harkiv">Харків</option>
-      <option value="if">Івано-Франківськ</option>
-      <option value="ternopil">Тернопіль</option>
-      <option value="harkiv">Харків</option>
-      <option value="vinnytsia">Вінниця</option>
-      <option value="zaporizhzhia">Запоріжжя</option>
-      <option value="odesa">Одеса</option>
-      <option value="hmelnytskiy">Хмельницький</option>
-      <option value="Рівне">Рівне</option>
-      <option value="lutsk">Луцьк</option>
-      <option value="cherkasy">Черкаси</option>
-      <option value="kropyvnytskiy">Кропивницький</option>
-      <option value="poltava">Полтава</option>
-      <option value="zhytomyr">Житомир</option>
-      <option value="chernivtsi">Чернівці</option>
-      <option value="chernihiv">Чернігів</option>
-      <option value="mykolaiv">Миколаїв</option>
-      <option value="sumy">Суми</option>
-      <option value="uzhgorod">Ужгород</option>
-      <option value="herson">Херсон</option>
-      <option value="donetsk">Донецьк</option>
-      <option value="lugansk">Луганськ</option>
-      <option value="simferopol">Сімферополь</option>
+      <span th:each="city : ${cities}">
+        <option th:text="${city.getName()}"
+                th:value="${city.getId()}"></option>
+      </span>
     </select>
   <p><input type="submit" value="Submit"></p>
 </form>
