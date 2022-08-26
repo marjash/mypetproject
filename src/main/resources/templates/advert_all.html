@@ -19,6 +19,7 @@
             <th>Ціна</th>
             <th>Місто</th>
             <th>Телефон</th>
+            <th>User</th>
             <th></th>
 
         </tr>
@@ -27,10 +28,11 @@
         <tr th:each="advert, iStat: ${adverts}">
             <td th:text="${iStat.index + 1}"></td>
             <td th:text="${advert.getName()}"></td>
-            <td th:text="${advert.getCategory()}"></td>
+            <td th:text="${advert.category.getName()}"></td>
             <td th:text="${advert.getPrice()}"></td>
-            <td th:text="${advert.getCity()}"></td>
+            <td th:text="${advert.city.getName()}"></td>
             <td th:text="${advert.getPhone()}"></td>
+            <td th:text="${advert.user.getName()}"></td>
             <td>
                 <a th:href="@{|/advert/${advert.getId()}/delete|}"
                    class="btn btn-danger">Delete</a>

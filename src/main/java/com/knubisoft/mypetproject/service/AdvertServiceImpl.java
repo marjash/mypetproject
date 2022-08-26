@@ -1,5 +1,7 @@
-package com.knubisoft.mypetproject;
+package com.knubisoft.mypetproject.service;
 
+import com.knubisoft.mypetproject.repository.AdvertRepository;
+import com.knubisoft.mypetproject.model.Advert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

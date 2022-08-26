@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <title>Users list</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h2>Юзери</h2>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>№</th>
+        <th>Ім'я</th>
+        <th>Прізвище</th>
+        <th>email</th>
+        <th>Дата народження</th>
+        <th>Місто</th>
+        <th></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user, iStat: ${users}">
+        <td th:text="${iStat.index + 1}"></td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getSurname()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getDateOfBirth()}"></td>
+        <td th:text="${user.city.getName()}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

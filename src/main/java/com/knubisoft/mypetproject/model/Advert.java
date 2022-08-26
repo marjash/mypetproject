@@ -1,4 +1,4 @@
-package com.knubisoft.mypetproject;
+package com.knubisoft.mypetproject.model;
 
 import javax.persistence.*;
 import lombok.*;
@@ -15,20 +15,20 @@ public class Advert {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-//    @Column(name = "name")
     private String name;
 
-//    @Column(name = "category")
-    private String category;
+    @ManyToOne
+    private Category category;
 
-//    @Column(name = "price")
     private int price;
 
-//    @Column(name = "city")
-    private String city;
+    @ManyToOne
+    private City city;
 
-//    @Column(name = "phone")
     private String phone;
+
+    @ManyToOne
+    private User user;
 
     @Override
     public String toString() {

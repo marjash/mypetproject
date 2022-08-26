@@ -1,5 +1,7 @@
-package com.knubisoft.mypetproject;
+package com.knubisoft.mypetproject.controller;
 
+import com.knubisoft.mypetproject.service.AdvertServiceImpl;
+import com.knubisoft.mypetproject.model.Advert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,5 +40,7 @@ public class AdvertController {
         advertService.delete(id);
         return "redirect:/advert/all";
     }
+
+
 
 }

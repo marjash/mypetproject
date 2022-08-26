@@ -1,4 +1,6 @@
-package com.knubisoft.mypetproject;
+package com.knubisoft.mypetproject.service;
+
+import com.knubisoft.mypetproject.model.Advert;
 
 import java.util.List;
 import java.util.Optional;
