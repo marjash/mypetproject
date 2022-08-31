@@ -5,7 +5,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<form action="#" th:action="@{/user/create}" th:object="${user}" method="post">
+<form action="#" th:action="@{/register}" th:object="${user}" method="post">
+  <label for="username">Username: </label>
+  <input type="text" id="username" th:field="*{username}"><br/>
   <label for="name">Ім'я</label><br>
   <input type="text" id="name" th:field="*{name}"><br>
   <label for="lname">Прізвище</label><br>
@@ -23,7 +25,7 @@
                 th:value="${city.getId()}"></option>
       </span>
     </select>
-  <p><input type="submit" value="Submit"></p>
+  <p><input type="submit" value="Register"></p>
 </form>
 </body>
 </html>

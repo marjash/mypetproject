@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taco Cloud</title>
+</head>
+<body>
+<h1>Register</h1>
+<form method="POST" th:action="@{/register}" th:object="${user}" id="registerForm">
+    <label for="name">Name: </label>
+    <input type="text" name="name" id="name"/><br/>
+    <label for="surname">Surname: </label>
+    <input type="text" name="Surname" id="surname"/><br/>
+    <label for="email">Email: </label>
+    <input type="email" name="email" id="email"/><br/>
+    <label for="username">Username: </label>
+    <input type="text" name="username" id="username"/><br/>
+    <label for="password">Password: </label>
+    <input type="password" name="password" id="password"/><br/>
+<!--    <label for="confirm">Confirm password: </label>-->
+<!--    <input type="password" name="confirm" id="confirm"/><br/>-->
+    <label for="dateOfBirth">dateOfBirth: </label>
+    <input type="date" name="dateOfBirth" id="dateOfBirth"/><br/>
+    <label for="phone">Phone: </label>
+    <input type="text" name="phone" id="phone"/><br/>
+    <label for="city">Виберіть Ваше місто:</label>
+    <select id="city" name="city" th:field="*{city}">
+      <span th:each="city : ${cities}">
+        <option th:text="${city.getName()}"
+                th:value="${city.getId()}"></option>
+      </span>
+    </select>
+    <input type="submit" value="Register"/>
+</form>
+</body>
+</html>
