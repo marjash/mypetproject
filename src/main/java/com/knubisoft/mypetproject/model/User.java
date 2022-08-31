@@ -25,7 +25,7 @@ public class User implements UserDetails {
     private String name;
     private String surname;
     private String email;
-    private String username;
+//    private String username;
     private String password;
 
     @Column(name = "date_of_bitrh")
@@ -50,7 +50,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
@@ -73,11 +73,11 @@ public class User implements UserDetails {
         return true;
     }
 
-    public User(String name, String surname, String email, String username, String password, String dateOfBirth, String phone, City city, List<Advert> advertList) {
+    public User(String name, String surname, String email, String password, String dateOfBirth, String phone, City city, List<Advert> advertList) {
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.username = username;
+//        this.username = username;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
         this.phone = phone;

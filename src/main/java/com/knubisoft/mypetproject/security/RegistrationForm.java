@@ -14,7 +14,7 @@ public class RegistrationForm {
     private String name;
     private String surname;
     private String email;
-    private String username;
+//    private String username;
     private String password;
     private String dateOfBirth;
     private String phone;
@@ -22,6 +22,6 @@ public class RegistrationForm {
     private List<Advert> advertList;
 
     public User toUser(PasswordEncoder passwordEncoder) {
-        return new User(name, surname, email, username, passwordEncoder.encode(password), dateOfBirth, phone, city, advertList);
+        return new User(name, surname, email, passwordEncoder.encode(password), dateOfBirth, phone, city, advertList);
     }
 }
