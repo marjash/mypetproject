@@ -1,9 +1,0 @@
-#spring:
-#security:
-#oauth2:
-#client:
-#registration:
-#facebook:
-#clientId: 1378323969237812
-#clientSecret: 92a8abd10eafbda9fd2e52eebff3d4eb
-#scope: email, public_profile

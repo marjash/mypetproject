@@ -4,7 +4,6 @@ import com.knubisoft.mypetproject.model.User;
 import com.knubisoft.mypetproject.repository.UserRepository;
 import com.knubisoft.mypetproject.security.RegistrationForm;
 import com.knubisoft.mypetproject.service.CityServiceImpl;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -25,12 +24,6 @@ public class RegistrationController {
     @Autowired
     CityServiceImpl cityService;
 
-    public RegistrationController(
-            UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-
     @GetMapping
     public String registerForm(Model model){
         model.addAttribute("user", new User());
@@ -42,5 +35,11 @@ public class RegistrationController {
     private String processRegistration(RegistrationForm form){
         userRepository.save(form.toUser(passwordEncoder));
         return "redirect:/login";
+    }
+
+    public RegistrationController(
+            UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 }

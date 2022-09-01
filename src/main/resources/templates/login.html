@@ -15,8 +15,9 @@
   <a th:href="@{/oauth2/authorization/facebook}">Sign in with Facebook</a></p>
 <p>
   <a th:href="@{/oauth2/authorization/google}">Sign in with Google</a></p>
+
 <form method="POST" th:action="@{/login}" id="loginForm">
-  <label for="username">Username: </label>
+  <label for="username">Email: </label>
   <input type="text" name="username" id="username" /><br/>
   <label for="password">Password: </label>
   <input type="password" name="password" id="password" /><br/>
