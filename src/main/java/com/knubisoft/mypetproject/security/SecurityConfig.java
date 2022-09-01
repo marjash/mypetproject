@@ -39,7 +39,9 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-//                .usernameParameter("email")
+                .and()
+                .oauth2Login()
+                .loginPage("/login")
                 .and()
                 .build();
     }

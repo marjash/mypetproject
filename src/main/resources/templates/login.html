@@ -11,6 +11,7 @@
 </div>
 <p>New here? Click
   <a th:href="@{/register}">here</a> to register.</p>
+  <a th:href="@{/oauth2/authorization/facebook}">Sign in with Facebook</a>
 <form method="POST" th:action="@{/login}" id="loginForm">
   <label for="username">Username: </label>
   <input type="text" name="username" id="username" /><br/>
