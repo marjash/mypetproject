@@ -30,14 +30,15 @@ public class UserController {
         User user = null;
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
-        if (((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId().equals("google")){
-            DefaultOidcUser google = (DefaultOidcUser) authentication.getPrincipal();
-            String email = google.getEmail();
-            user = userRepository.findByEmail(email);
-        }
-        else if (((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId().equals("facebook")){
-            String email = (String) (((OAuth2AuthenticationToken) authentication).getPrincipal()).getAttributes().get("email");
-            user = userRepository.findByEmail(email);
+        if (!authentication.getPrincipal().getClass().getName().equals(User.class.getName())) {
+            if (((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId().equals("google")) {
+                DefaultOidcUser google = (DefaultOidcUser) authentication.getPrincipal();
+                String email = google.getEmail();
+                user = userRepository.findByEmail(email);
+            } else if (((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId().equals("facebook")) {
+                String email = (String) (((OAuth2AuthenticationToken) authentication).getPrincipal()).getAttributes().get("email");
+                user = userRepository.findByEmail(email);
+            }
         }
         else {
             user = (User) authentication.getPrincipal();
@@ -46,7 +47,6 @@ public class UserController {
         model.addAttribute("user", user);
         return "home";
     }
-
 
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
