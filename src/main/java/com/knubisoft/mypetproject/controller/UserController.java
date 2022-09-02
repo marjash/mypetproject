@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -34,9 +35,18 @@ public class UserController {
 
     @GetMapping("/")
     public String user(Model model) {
+        User user = null;
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
+        if (authentication.getClass().getName().equals("org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken")) {
+            DefaultOidcUser defaultOidcUser = (DefaultOidcUser) authentication.getPrincipal();
+            String email = defaultOidcUser.getEmail();
+            user = userRepository.findByEmail(email);
+        }
+        else {
+            user = (User) authentication.getPrincipal();
+        }
+
         model.addAttribute("user", user);
         return "home";
     }
