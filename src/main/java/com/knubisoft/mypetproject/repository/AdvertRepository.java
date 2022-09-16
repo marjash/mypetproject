@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface AdvertRepository extends JpaRepository<Advert, Long> {
-    List<Advert> findAllByUserId(long user_id);
+    List<Advert> findAllByUserId(long userId);
 }

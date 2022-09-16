@@ -6,24 +6,15 @@ import com.knubisoft.mypetproject.repository.AdvertRepository;
 import com.knubisoft.mypetproject.repository.CategoryRepository;
 import com.knubisoft.mypetproject.repository.CityRepository;
 import com.knubisoft.mypetproject.repository.UserRepository;
-import com.knubisoft.mypetproject.service.CityServiceImpl;
-import com.knubisoft.mypetproject.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 
 @Controller
@@ -33,9 +24,6 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private UserServiceImpl userService;
 
     @Autowired
     private CityRepository cityRepository;

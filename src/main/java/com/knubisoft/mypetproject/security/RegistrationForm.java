@@ -14,7 +14,6 @@ public class RegistrationForm {
     private String name;
     private String surname;
     private String email;
-//    private String username;
     private String password;
     private String dateOfBirth;
     private String phone;
