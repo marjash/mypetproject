@@ -24,7 +24,7 @@ public class AdvertController {
         model.addAttribute("adverts", advertRepository.findAll());
         return "advert_all";
     }
-//
+
     @GetMapping("/advert/{id}/delete")
     public String delete(@PathVariable("id") long id){
         advertRepository.deleteById(id);

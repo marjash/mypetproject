@@ -22,7 +22,12 @@
 <body>
 <h1 th:text="'Hello, ' + ${user.getName()} + '!'"></h1>
 
-
+<form th:action="@{/create/advert}" method="get">
+    <input type="submit" value="Створити нове оголошення">
+</form>
+<form th:action="@{/my/advert}" method="get">
+    <input type="submit" value="Мої оголошення">
+</form>
 <form method="POST" th:action="@{/logout}">
     <input type="submit" value="Logout"/>
 </form>

@@ -22,6 +22,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 
 @Controller
@@ -67,6 +69,13 @@ public class UserController {
         advert.setUser(user);
         advertRepository.save(advert);
         return "redirect:/advert/all";
+    }
+
+    @GetMapping("my/advert")
+    public String getAdvert(Model model){
+        User user = getUser();
+        model.addAttribute("adverts", advertRepository.findAllByUserId(user.getId()));
+        return "advert_all";
     }
 
     private User getUser() {
