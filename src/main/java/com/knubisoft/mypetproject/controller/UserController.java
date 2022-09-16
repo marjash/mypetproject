@@ -1,16 +1,27 @@
 package com.knubisoft.mypetproject.controller;
 
+import com.knubisoft.mypetproject.model.Advert;
 import com.knubisoft.mypetproject.model.User;
+import com.knubisoft.mypetproject.repository.AdvertRepository;
+import com.knubisoft.mypetproject.repository.CategoryRepository;
+import com.knubisoft.mypetproject.repository.CityRepository;
 import com.knubisoft.mypetproject.repository.UserRepository;
+import com.knubisoft.mypetproject.service.CityServiceImpl;
 import com.knubisoft.mypetproject.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 
 @Controller
@@ -24,9 +35,41 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private CityRepository cityRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private AdvertRepository advertRepository;
+
 
     @GetMapping("/")
     public String user(Model model) {
+        User user = getUser();
+        model.addAttribute("user", user);
+        return "home";
+    }
+
+    @GetMapping("create/advert")
+    public String createAdvert(Model model){
+        Advert advert = new Advert();
+        model.addAttribute("advert", advert);
+        model.addAttribute("cities", cityRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
+        return "create_advert";
+    }
+
+    @PostMapping("/create/advert")
+    public String create(@Validated @ModelAttribute("advert") Advert advert) {
+        User user = getUser();
+        advert.setUser(user);
+        advertRepository.save(advert);
+        return "redirect:/advert/all";
+    }
+
+    private User getUser() {
         User user = null;
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
@@ -40,15 +83,8 @@ public class UserController {
                 user = userRepository.findByEmail(email);
             }
         }
-        else {
+        else
             user = (User) authentication.getPrincipal();
-        }
-
-        model.addAttribute("user", user);
-        return "home";
-    }
-
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+        return user;
     }
 }

@@ -21,6 +21,8 @@
 </head>
 <body>
 <h1 th:text="'Hello, ' + ${user.getName()} + '!'"></h1>
+
+
 <form method="POST" th:action="@{/logout}">
     <input type="submit" value="Logout"/>
 </form>

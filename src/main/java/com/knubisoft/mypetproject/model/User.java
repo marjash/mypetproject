@@ -27,7 +27,6 @@ public class User implements UserDetails {
 
     @Column(unique = true)
     private String email;
-//    private String username;
     private String password;
 
     @Column(name = "date_of_bitrh")
@@ -41,7 +40,8 @@ public class User implements UserDetails {
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+            orphanRemoval = true
+//            fetch = FetchType.LAZY
     )
     private List<Advert> advertList = new ArrayList<>();
 
@@ -79,7 +79,6 @@ public class User implements UserDetails {
         this.name = name;
         this.surname = surname;
         this.email = email;
-//        this.username = username;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
         this.phone = phone;

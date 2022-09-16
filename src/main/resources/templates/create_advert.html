@@ -19,7 +19,12 @@
                 <label for="category">Категорія</label>
             </td>
             <td>
-                <input type="text" th:field="*{category}" id="category" />
+                <select id="category" name="category" th:field="*{category}">
+                  <span th:each="category : ${categories}">
+                    <option th:text="${category.getName()}"
+                            th:value="${category.getId()}"></option>
+                  </span>
+                </select>
             </td>
             <td>
                 <label for="price">Ціна</label>
@@ -31,7 +36,12 @@
                 <label for="city">Місто</label>
             </td>
             <td>
-                <input type="text" th:field="*{city}" id="city" />
+                <select id="city" name="city" th:field="*{city}">
+                  <span th:each="city : ${cities}">
+                    <option th:text="${city.getName()}"
+                            th:value="${city.getId()}"></option>
+                  </span>
+                </select>
             </td>
             <td>
                 <label for="phone">Телефон</label>
@@ -39,6 +49,12 @@
             <td>
                 <input type="text" th:field="*{phone}" id="phone" />
             </td>
+
+<!--            <span id="user" name="user" th:field="*{user}"-->
+<!--                            th:value="${user.getId()}">-->
+<!--                  </span>-->
+
+
         </tr>
         <input type="submit" value="Зберегти" />
         <input type="reset" value="Очистити" />

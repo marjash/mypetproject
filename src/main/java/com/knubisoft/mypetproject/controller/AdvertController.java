@@ -1,5 +1,6 @@
 package com.knubisoft.mypetproject.controller;
 
+import com.knubisoft.mypetproject.repository.AdvertRepository;
 import com.knubisoft.mypetproject.service.AdvertServiceImpl;
 import com.knubisoft.mypetproject.model.Advert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,32 +16,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AdvertController {
 
     @Autowired
-    AdvertServiceImpl advertService;
+    AdvertRepository advertRepository;
 
-    @GetMapping("/create/advert")
-    public String addAdvert(Model model){
-        model.addAttribute("advert", new Advert());
-        return "create_advert";
-    }
-
-    @PostMapping("/create/advert")
-    public String create(@Validated @ModelAttribute("advert") Advert advert){
-        advertService.save(advert);
-        return "redirect:/advert/all";
-    }
 
     @GetMapping("advert/all")
     public String getAll(Model model) {
-        model.addAttribute("adverts", advertService.getAll());
+        model.addAttribute("adverts", advertRepository.findAll());
         return "advert_all";
     }
-
+//
     @GetMapping("/advert/{id}/delete")
     public String delete(@PathVariable("id") long id){
-        advertService.delete(id);
+        advertRepository.deleteById(id);
         return "redirect:/advert/all";
     }
-
-
-
 }
