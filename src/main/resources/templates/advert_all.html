@@ -8,10 +8,7 @@
 </head>
 <body>
 <div class="container mt-7">
-    <h2>Оголошення</h2>
-    <form th:action="@{/create/advert}" method="get">
-        <input type="submit" value="Створити нове оголошення">
-    </form>
+    <h2 class= "text-center">Оголошення</h2>
     <br>
     <table class="table">
         <thead>
@@ -37,11 +34,13 @@
             <td th:text="${advert.user.getName()}"></td>
             <td>
                 <a th:href="@{|/advert/${advert.getId()}/delete|}"
-                   class="btn btn-danger">Delete</a>
+                   class="btn btn-danger">Видалити</a>
             </td>
         </tr>
         </tbody>
     </table>
+    <a th:href="@{/create/advert}"
+        class="btn btn-success">Створити оголошення</a>
 </div>
 </body>
 </html>

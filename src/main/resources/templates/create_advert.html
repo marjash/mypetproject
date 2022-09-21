@@ -2,18 +2,20 @@
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
     <title>Creating</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<h2>Створити оголошення</h2>
-<form action="#" th:action="@{/create/advert}" th:object="${advert}" method="post">
-    <table>
+<h2 class="text-center">Створити оголошення</h2>
+<form th:action="@{/create/advert}" th:object="${advert}" method="post">
+    <table class="table">
         <tr>
             <td>
                 <label for="advert-name">Назва товару:</label>
             </td>
             <td>
-                <input type="text" th:field="*{name}" id="advert-name" />
+                <input type="text" th:field="*{name}" id="advert-name"/>
             </td>
             <td>
                 <label for="category">Категорія</label>
@@ -30,7 +32,7 @@
                 <label for="price">Ціна</label>
             </td>
             <td>
-                <input type="text" th:field="*{price}" id="price" />
+                <input type="text" th:field="*{price}" id="price"/>
             </td>
             <td>
                 <label for="city">Місто</label>
@@ -47,18 +49,14 @@
                 <label for="phone">Телефон</label>
             </td>
             <td>
-                <input type="text" th:field="*{phone}" id="phone" />
+                <input type="text" th:field="*{phone}" id="phone"/>
             </td>
-
-<!--            <span id="user" name="user" th:field="*{user}"-->
-<!--                            th:value="${user.getId()}">-->
-<!--                  </span>-->
-
-
         </tr>
-        <input type="submit" value="Зберегти" />
-        <input type="reset" value="Очистити" />
     </table>
+    <div class="mt-4 pt-2">
+        <input type="submit" class="btn btn-success" value="Зберегти"/>
+        <input type="reset" class="btn btn-danger" value="Очистити"/>
+    </div>
 </form>
 </body>
 </html>

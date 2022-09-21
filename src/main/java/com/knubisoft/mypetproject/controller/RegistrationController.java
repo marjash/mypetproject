@@ -28,7 +28,7 @@ public class RegistrationController {
     public String registerForm(Model model){
         model.addAttribute("user", new User());
         model.addAttribute("cities", cityService.getAll());
-        return "registration";
+        return "reg";
     }
 
     @PostMapping

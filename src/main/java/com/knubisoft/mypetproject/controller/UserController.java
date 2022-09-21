@@ -48,7 +48,7 @@ public class UserController {
         model.addAttribute("advert", advert);
         model.addAttribute("cities", cityRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
-        return "create_advert";
+        return "create_advert2";
     }
 
     @PostMapping("/create/advert")
