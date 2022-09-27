@@ -30,6 +30,8 @@ public class Advert {
     @ManyToOne
     private User user;
 
+    private String image;
+
     @Override
     public String toString() {
         return "Advert{" +
