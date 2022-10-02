@@ -32,5 +32,12 @@ public class Advert {
 
     @Column(name = "image_path")
     private String imagePath;
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (imagePath == null)
+            return null;
+        return imagePath + "/" + "4.png";
+    }
 }
 
