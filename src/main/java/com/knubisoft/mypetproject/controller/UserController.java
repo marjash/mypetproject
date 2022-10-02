@@ -68,8 +68,8 @@ public class UserController {
         String uploadDir = null;
         for (MultipartFile m : multipartFile) {
             String fileName = StringUtils.cleanPath(m.getOriginalFilename());
-            uploadDir = "/src/main/resources/adverts/" + user.getId();
-            Path path = Paths.get("src/main/resources/adverts/" + user.getId());
+            uploadDir = "/images/" + user.getId();
+            Path path = Paths.get("/mypetproject/images/" + user.getId());
             if (!Files.exists(path))
                 Files.createDirectories(path);
             InputStream inputStream = m.getInputStream();

@@ -10,8 +10,6 @@
 <div class="container mt-7">
     <h2 class= "text-center">Оголошення</h2>
     <br>
-    <img src="../src/main/resources/adverts/1/2.png" class="img-fluid img-thumbnail">
-
     <table class="table">
         <thead>
         <tr>
@@ -31,8 +29,7 @@
         <tr th:each="advert, iStat: ${adverts}">
             <td th:text="${iStat.index + 1}"></td>
             <td class="w-25">
-<!--                <img th:src="@{${advert.getPhotosImagePath()}}" class="img-fluid img-thumbnail"></td>-->
-<!--                <img src="src/main/resources/adverts/1/2.png" class="img-fluid img-thumbnail"></td>-->
+                <img th:src="@{${advert.getPhotosImagePath()}}" class="img-fluid img-thumbnail"></td>
             <td th:text="${advert.getName()}"></td>
             <td th:text="${advert.category.getName()}"></td>
             <td th:text="${advert.getPrice()}"></td>

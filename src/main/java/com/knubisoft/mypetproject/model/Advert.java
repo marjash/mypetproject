@@ -3,6 +3,9 @@ package com.knubisoft.mypetproject.model;
 import javax.persistence.*;
 
 import lombok.*;
+import org.apache.commons.io.FilenameUtils;
+
+import java.io.File;
 
 @Getter
 @Setter
@@ -37,7 +40,11 @@ public class Advert {
     public String getPhotosImagePath() {
         if (imagePath == null)
             return null;
-        return imagePath + "/" + "4.png";
+        String path = imagePath.replace("\\", "/");
+        path = path.substring(1);
+        File file = new File(path);
+        File[] files = file.listFiles();
+        return imagePath + "/" + files[0].getName();
     }
 }
 
