@@ -1,8 +1,8 @@
 package com.knubisoft.mypetproject.model;
 
 import javax.persistence.*;
-import lombok.*;
 
+import lombok.*;
 
 @Getter
 @Setter
@@ -30,17 +30,7 @@ public class Advert {
     @ManyToOne
     private User user;
 
-    private String image;
-
-    @Override
-    public String toString() {
-        return "Advert{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                ", price=" + price +
-                ", city='" + city + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
-    }
+    @Column(name = "image_path")
+    private String imagePath;
 }
+

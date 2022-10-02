@@ -6,6 +6,7 @@ import com.knubisoft.mypetproject.repository.AdvertRepository;
 import com.knubisoft.mypetproject.repository.CategoryRepository;
 import com.knubisoft.mypetproject.repository.CityRepository;
 import com.knubisoft.mypetproject.repository.UserRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,8 +14,16 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 
 @Controller
@@ -43,24 +52,38 @@ public class UserController {
     }
 
     @GetMapping("create/advert")
-    public String createAdvert(Model model){
+    public String createAdvert(Model model) {
         Advert advert = new Advert();
         model.addAttribute("advert", advert);
         model.addAttribute("cities", cityRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
-        return "create_advert2";
+        return "create_advert";
     }
 
     @PostMapping("/create/advert")
-    public String create(@Validated @ModelAttribute("advert") Advert advert) {
+    public String create (@Validated @ModelAttribute("advert") Advert advert,
+                          @RequestParam("image") List<MultipartFile> multipartFile) throws IOException {
         User user = getUser();
         advert.setUser(user);
+        String uploadDir = null;
+        for (MultipartFile m : multipartFile) {
+            String fileName = StringUtils.cleanPath(m.getOriginalFilename());
+            uploadDir = "/src/main/resources/adverts/" + user.getId();
+            Path path = Paths.get("src/main/resources/adverts/" + user.getId());
+            if (!Files.exists(path))
+                Files.createDirectories(path);
+            InputStream inputStream = m.getInputStream();
+            Path filePath = path.resolve(fileName);
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        }
+        advert.setImagePath(uploadDir);
         advertRepository.save(advert);
         return "redirect:/advert/all";
     }
 
+
     @GetMapping("my/advert")
-    public String getAdvert(Model model){
+    public String getAdvert(Model model) {
         User user = getUser();
         model.addAttribute("adverts", advertRepository.findAllByUserId(user.getId()));
         return "advert_all";
@@ -79,9 +102,9 @@ public class UserController {
                 String email = (String) (((OAuth2AuthenticationToken) authentication).getPrincipal()).getAttributes().get("email");
                 user = userRepository.findByEmail(email);
             }
-        }
-        else
+        } else
             user = (User) authentication.getPrincipal();
         return user;
     }
+
 }
