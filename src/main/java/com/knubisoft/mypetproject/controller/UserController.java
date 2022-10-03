@@ -78,15 +78,14 @@ public class UserController {
         }
         advert.setImagePath(uploadDir);
         advertRepository.save(advert);
-        return "redirect:/advert/all";
+        return "redirect:/my/advert";
     }
-
 
     @GetMapping("my/advert")
     public String getAdvert(Model model) {
         User user = getUser();
         model.addAttribute("adverts", advertRepository.findAllByUserId(user.getId()));
-        return "advert_all";
+        return "my_advert";
     }
 
     private User getUser() {

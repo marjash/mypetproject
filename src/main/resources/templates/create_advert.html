@@ -2,13 +2,15 @@
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
     <title>Creating</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<div>
+    <div th:insert="header :: head">
+    </div>
+</div>
 <h2>Створити оголошення</h2>
 <form th:action="@{/create/advert}" th:object="${advert}" method="post"
       enctype="multipart/form-data">
