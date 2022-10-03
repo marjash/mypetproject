@@ -60,9 +60,10 @@ public class UserController {
         return "create_advert";
     }
 
+    @SneakyThrows
     @PostMapping("/create/advert")
     public String create (@Validated @ModelAttribute("advert") Advert advert,
-                          @RequestParam("image") List<MultipartFile> multipartFile) throws IOException {
+                          @RequestParam("image") List<MultipartFile> multipartFile) {
         User user = getUser();
         advert.setUser(user);
         String uploadDir = null;

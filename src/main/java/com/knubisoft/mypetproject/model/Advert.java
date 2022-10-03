@@ -3,7 +3,6 @@ package com.knubisoft.mypetproject.model;
 import javax.persistence.*;
 
 import lombok.*;
-import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 

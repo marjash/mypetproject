@@ -11,7 +11,8 @@
             text-align: left;
             width: 33.3333%;
         }
-        .price{
+
+        .price {
             text-align: right;
             font-weight: bold;
         }
@@ -25,9 +26,30 @@
 <div class="container mt-7">
     <h2 class="text-center">Оголошення</h2>
     <br>
-    <div class="container-fluid">
+    <div class="row g-6">
         <form th:action="@{/search}" method="get" class="d-flex" role="search">
-            <input class="form-control me-2" type="search" name="keyword" id="keyword" placeholder="Пошук" aria-label="Search">
+            <div class="col-md">
+                <input class="form-control" type="search" name="keyword" id="keyword" placeholder="Шукаю"
+                       aria-label="Search">
+            </div>
+            <div class="col-md">
+                <input class="form-control" type="search" list="datalistOptions" id="categoryName" name="categoryName"
+                       placeholder="Категорія">
+                <datalist id="datalistOptions">
+                    <span th:each="category : ${categories}">
+                    <option th:text="${category.getName()}"></option>
+                  </span>
+                </datalist>
+            </div>
+            <div class="col-md">
+                <input class="form-control" type="search" list="datalistOptions2" id="cityName" name="cityName"
+                       placeholder="Вся Україна">
+                <datalist id="datalistOptions2">
+                    <span th:each="city : ${cities}">
+                    <option th:text="${city.getName()}"></option>
+                  </span>
+                </datalist>
+            </div>
             <button class="btn btn-outline-secondary" type="submit">Пошук</button>
         </form>
     </div>
