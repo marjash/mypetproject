@@ -27,18 +27,12 @@
         <tbody>
         <tr id="row-2" th:each="advert, iStat: ${adverts}">
             <td class="w-25">
-<!--                <a th:href="@{/create/advert}" class="row-link">-->
-                    <img th:src="@{${advert.getPhotosImagePath()}}" class="img-fluid img-thumbnail"></td>
+                <img th:src="@{${advert.getFirstPhoto()}}" class="img-fluid img-thumbnail"></td>
             <td th:text="${advert.getName()}">
-
-            <!--                <a th:href="@{/create/advert}" class="row-link">Палатка-->
             </td>
             <td th:text="${advert.category.getName()}"></td>
             <td th:text="${advert.city.getName()}"></td>
             <td class="price" th:text="${advert.getPrice()} + ' ' + грн"></td>
-<!--            <td>-->
-<!--                <a th:href="@{/create/advert}">Go somewhere</a>-->
-<!--            </td>-->
         </tr>
         </tbody>
     </table>

@@ -36,7 +36,7 @@ public class Advert {
     private String imagePath;
 
     @Transient
-    public String getPhotosImagePath() {
+    public String getFirstPhoto() {
         if (imagePath == null)
             return null;
         String path = imagePath.replace("\\", "/");
@@ -45,5 +45,6 @@ public class Advert {
         File[] files = file.listFiles();
         return imagePath + "/" + files[0].getName();
     }
+
 }
 

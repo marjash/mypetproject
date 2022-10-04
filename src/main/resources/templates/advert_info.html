@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advert info</title>
+    <style>
+        .carousel {
+            margin: 20px;
+            width: 700px;
+        }
+        p{
+            padding: 10px;
+            text-align: center;
+        }
+        h2{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div th:insert="header :: head">
+    </div>
+</div>
+<div class="mt-4 p-5 bg-secondary text-white">
+    <h2 th:text="${advert.get().getName()}"></h2>
+</div>
+<div class="row justify-content-around">
+    <div class="col-4">
+        <div id="demo" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img th:src="@{${advert.get().getFirstPhoto()}}" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img th:src="@{${advert.get().getFirstPhoto()}}" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img th:src="@{${advert.get().getFirstPhoto()}}" class="d-block w-100">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+<div class="col-4">
+    <p th:text="'Місто ' + ${advert.get().getCity().getName()}"></p>
+    <p th:text="'Категорія ' + ${advert.get().getCategory().getName()}"></p>
+    <p th:text="'Ціна ' + ${advert.get().getPrice()} + ' ' + грн"></p>
+    <p th:text="'Власник ' + ${advert.get().getUser().getName()} + ' ' + ${advert.get().getUser().getSurname()}"></p>
+    <p th:text="'Телефон ' + ${advert.get().getPhone()}"></p>
+</div>
+</div>
+</body>
+</html>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AdvertController {
@@ -31,8 +32,16 @@ public class AdvertController {
         return "redirect:/search";
     }
 
+    @GetMapping("/advert/{id}")
+    public String getAdvert(@PathVariable("id") long id, Model model) {
+        Optional<Advert> byId = advertRepository.findById(id);
+        model.addAttribute("advert", byId);
+        System.out.println(byId.get().getId());
+        return "advert_info";
+    }
+
     @RequestMapping(path = {"/", "/search"})
-    public String home(Model model, String keyword, String categoryName, String cityName) {
+    public String allAdverts(Model model, String keyword, String categoryName, String cityName) {
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("cities", cityRepository.findAll());
         List<Advert> adverts = advertRepository.findAll();
