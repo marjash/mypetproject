@@ -11,10 +11,12 @@
             text-align: left;
             width: 33.3333%;
         }
-
         .price {
             text-align: right;
             font-weight: bold;
+        }
+        .table-row{
+            cursor:pointer;
         }
     </style>
 </head>
@@ -54,13 +56,12 @@
         </form>
     </div>
     <br>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-        </tr>
-        </thead>
+    <table class="table table-striped table-hover">
         <tbody>
-        <tr th:each="advert, iStat: ${adverts}">
+        <tr class="table-row clickable"
+            th:each="advert, iStat: ${adverts}"
+            th:onclick="'window.location.href = \'' + @{/advert/{id}(id=${advert.id})} + '\''">
+<!--            onclick="window.location.="@{/advert/id=}">-->
             <td class="w-25">
                 <img th:src="@{${advert.getPhotosImagePath()}}" class="img-fluid img-thumbnail"></td>
             <td class="name" th:text="${advert.getName()}"></td>
@@ -73,5 +74,12 @@
     <a th:href="@{/create/advert}"
        class="btn btn-success">Створити оголошення</a>
 </div>
+<script>
+    $(document).ready(function($) {
+        $(".table-row").click(function() {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>
 </body>
 </html>
