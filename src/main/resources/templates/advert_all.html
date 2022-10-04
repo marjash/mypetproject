@@ -47,10 +47,10 @@
             <td class="price" th:text="${advert.getPrice()} + ' ' + грн"></td>
             <!--            <td th:text="${advert.getPhone()}"></td>-->
 <!--            <td th:text="${advert.user.getName()}"></td>-->
-<!--            <td>-->
-<!--                <a th:href="@{|/advert/${advert.getId()}/delete|}"-->
-<!--                   class="btn btn-danger">Видалити</a>-->
-<!--            </td>-->
+            <td>
+                <a th:href="@{|/advert/${advert.getId()}/delete|}"
+                   class="btn btn-danger">Видалити</a>
+            </td>
         </tr>
         </tbody>
     </table>

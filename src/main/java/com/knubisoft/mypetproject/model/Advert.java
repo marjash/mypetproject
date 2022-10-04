@@ -6,6 +6,8 @@ import lombok.*;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,15 +41,32 @@ public class Advert {
     @Column(name = "date_of_creation")
     private LocalDate dateOfCreation;
 
+
     @Transient
     public String getFirstPhoto() {
+        File[] files = getFiles();
+        if (files == null) return null;
+        return imagePath + "/" + files[0].getName();
+    }
+
+    @Transient
+    public List<String> getAllImages(){
+        File[] files = getFiles();
+        List<String> list = new ArrayList<>();
+        for (File f : files) {
+            list.add(f.getName());
+        }
+        return list;
+    }
+
+    @Transient
+    private File[] getFiles() {
         if (imagePath == null)
             return null;
         String path = imagePath.replace("\\", "/");
         path = path.substring(1);
         File file = new File(path);
-        File[] files = file.listFiles();
-        return imagePath + "/" + files[0].getName();
+        return file.listFiles();
     }
 
 }

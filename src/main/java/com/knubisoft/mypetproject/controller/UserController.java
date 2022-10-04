@@ -24,6 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -71,8 +72,8 @@ public class UserController {
         String uploadDir = null;
         for (MultipartFile m : multipartFile) {
             String fileName = StringUtils.cleanPath(m.getOriginalFilename());
-            uploadDir = "/images/" + user.getId();
-            Path path = Paths.get("/mypetproject/images/" + user.getId());
+            uploadDir = "/images/" + user.getId() + "/" + LocalDateTime.now();
+            Path path = Paths.get("/mypetproject/images/" + user.getId()+ "/" + LocalDateTime.now());
             if (!Files.exists(path))
                 Files.createDirectories(path);
             InputStream inputStream = m.getInputStream();

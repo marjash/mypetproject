@@ -36,7 +36,6 @@ public class AdvertController {
     public String getAdvert(@PathVariable("id") long id, Model model) {
         Optional<Advert> byId = advertRepository.findById(id);
         model.addAttribute("advert", byId);
-        System.out.println(byId.get().getId());
         return "advert_info";
     }
 
