@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class User implements UserDetails {
     @Id
@@ -43,6 +45,9 @@ public class User implements UserDetails {
             fetch = FetchType.LAZY
     )
     private List<Advert> advertList = new ArrayList<>();
+
+    @Column(name = "date_of_registration")
+    private LocalDate dateOfRegistration;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -74,7 +79,7 @@ public class User implements UserDetails {
         return true;
     }
 
-    public User(String name, String surname, String email, String password, String dateOfBirth, String phone, City city, List<Advert> advertList) {
+    public User(String name, String surname, String email, String password, String dateOfBirth, String phone, City city, List<Advert> advertList, LocalDate dateOfRegistration) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -83,5 +88,6 @@ public class User implements UserDetails {
         this.phone = phone;
         this.city = city;
         this.advertList = advertList;
+        this.dateOfRegistration = dateOfRegistration;
     }
 }

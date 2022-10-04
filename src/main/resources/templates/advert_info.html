@@ -56,8 +56,10 @@
     <p th:text="'Місто ' + ${advert.get().getCity().getName()}"></p>
     <p th:text="'Категорія ' + ${advert.get().getCategory().getName()}"></p>
     <p th:text="'Ціна ' + ${advert.get().getPrice()} + ' ' + грн"></p>
-    <p th:text="'Власник ' + ${advert.get().getUser().getName()} + ' ' + ${advert.get().getUser().getSurname()}"></p>
+    <p th:text="'Користувач ' + ${advert.get().getUser().getName()} +
+    ' (На сайті з ' + ${advert.get().getUser().getDateOfRegistration()} + ')'"></p>
     <p th:text="'Телефон ' + ${advert.get().getPhone()}"></p>
+    <p th:text="'Опубліковано ' + ${advert.get().getDateOfCreation()}"></p>
 </div>
 </div>
 </body>

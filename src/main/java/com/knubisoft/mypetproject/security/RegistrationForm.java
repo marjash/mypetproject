@@ -7,6 +7,7 @@ import com.knubisoft.mypetproject.model.User;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -20,7 +21,10 @@ public class RegistrationForm {
     private City city;
     private List<Advert> advertList;
 
+    private LocalDate dateOfRegistration;
+
+
     public User toUser(PasswordEncoder passwordEncoder) {
-        return new User(name, surname, email, passwordEncoder.encode(password), dateOfBirth, phone, city, advertList);
+        return new User(name, surname, email, passwordEncoder.encode(password), dateOfBirth, phone, city, advertList, dateOfRegistration);
     }
 }

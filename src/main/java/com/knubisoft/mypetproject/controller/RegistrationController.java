@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping("/register")
 public class RegistrationController {
@@ -33,6 +35,7 @@ public class RegistrationController {
 
     @PostMapping
     private String processRegistration(RegistrationForm form){
+        form.setDateOfRegistration(LocalDate.now());
         userRepository.save(form.toUser(passwordEncoder));
         return "redirect:/login";
     }

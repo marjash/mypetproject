@@ -23,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -66,6 +67,7 @@ public class UserController {
                           @RequestParam("image") List<MultipartFile> multipartFile) {
         User user = getUser();
         advert.setUser(user);
+        advert.setDateOfCreation(LocalDate.now());
         String uploadDir = null;
         for (MultipartFile m : multipartFile) {
             String fileName = StringUtils.cleanPath(m.getOriginalFilename());

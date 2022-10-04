@@ -5,6 +5,7 @@ import javax.persistence.*;
 import lombok.*;
 
 import java.io.File;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -34,6 +35,9 @@ public class Advert {
 
     @Column(name = "image_path")
     private String imagePath;
+
+    @Column(name = "date_of_creation")
+    private LocalDate dateOfCreation;
 
     @Transient
     public String getFirstPhoto() {
