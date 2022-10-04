@@ -70,10 +70,11 @@ public class UserController {
         advert.setUser(user);
         advert.setDateOfCreation(LocalDate.now());
         String uploadDir = null;
+        advertRepository.save(advert);
         for (MultipartFile m : multipartFile) {
             String fileName = StringUtils.cleanPath(m.getOriginalFilename());
-            uploadDir = "/images/" + user.getId() + "/" + LocalDateTime.now();
-            Path path = Paths.get("/mypetproject/images/" + user.getId()+ "/" + LocalDateTime.now());
+            uploadDir = "/images/" + user.getId() + "/" + advert.getId();
+            Path path = Paths.get("/mypetproject/images/" + user.getId() + "/" + advert.getId());
             if (!Files.exists(path))
                 Files.createDirectories(path);
             InputStream inputStream = m.getInputStream();
@@ -81,7 +82,7 @@ public class UserController {
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
         }
         advert.setImagePath(uploadDir);
-        advertRepository.save(advert);
+        advertRepository.updateImagePath(uploadDir, advert.getId());
         return "redirect:/my/advert";
     }
 
