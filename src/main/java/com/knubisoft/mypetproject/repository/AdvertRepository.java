@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,4 +30,18 @@ public interface AdvertRepository extends JpaRepository<Advert, Long> {
     @Modifying
     @Query(value = "update advert set image_path = :path where id = :id", nativeQuery = true)
     void updateImagePath(@Param("path") String path, @Param("id") long id);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "update advert set book = :userId where id = :advertId", nativeQuery = true)
+    void updateBook(@Param("userId") long userId, @Param("advertId") long advertId);
+
+
+    @Query(value = "select * from advert where book = :id", nativeQuery = true)
+    List<Advert> findAdvertsByBookId(@Param("id") long id);
+
+    @Query(value = "select * from advert where book is null", nativeQuery = true)
+    List<Advert> findAllAdverts();
+
 }

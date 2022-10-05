@@ -7,7 +7,7 @@
         .carousel {
             margin: 20px;
             width: 600px;
-            height: 600px;
+            height: 400px;
         }
 
         p {
@@ -31,11 +31,6 @@
 <div class="row justify-content-around">
     <div class="col-4">
         <div id="demo" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-            </div>
             <div class="carousel-inner">
                 <div class="carousel-item active"
                      th:each="image, iStat: ${advert.get().getAllImages()}">
@@ -58,6 +53,12 @@
     ' (На сайті з ' + ${advert.get().getUser().getDateOfRegistration()} + ')'"></p>
         <p th:text="'Телефон ' + ${advert.get().getPhone()}"></p>
         <p th:text="'Опубліковано ' + ${advert.get().getDateOfCreation()}"></p>
+        <div th:if="${advert.get().getBook() == null}">
+            <p th:text="${advert.get().getBook()}"></p>
+            <form th:action="@{|/advert/${advert.get().getId()}/book|}" method="post">
+                <button class="btn btn-dark" type="submit">Бронювати</button>
+            </form>
+        </div>
     </div>
 </div>
 </body>

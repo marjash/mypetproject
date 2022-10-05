@@ -15,23 +15,22 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Controller
-//@RequestMapping("/")
 public class UserController {
-
 
     @Autowired
     private UserRepository userRepository;
@@ -45,7 +44,6 @@ public class UserController {
     @Autowired
     private AdvertRepository advertRepository;
 
-
     @GetMapping("/")
     public String user(Model model) {
         User user = getUser();
@@ -53,19 +51,22 @@ public class UserController {
         return "home";
     }
 
-    @GetMapping("create/advert")
-    public String createAdvert(Model model) {
-        Advert advert = new Advert();
-        model.addAttribute("advert", advert);
+    @GetMapping("my/create/advert")
+    public String createAdvert(@ModelAttribute("advert") Advert advert, Model model) {
         model.addAttribute("cities", cityRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
         return "create_advert";
     }
 
     @SneakyThrows
-    @PostMapping("/create/advert")
-    public String create (@Validated @ModelAttribute("advert") Advert advert,
-                          @RequestParam("image") List<MultipartFile> multipartFile) {
+    @PostMapping("my/create/advert")
+    public String create(@ModelAttribute("advert") @Valid Advert advert, BindingResult bindingResult,
+                         @RequestParam("image") List<MultipartFile> multipartFile, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("cities", cityRepository.findAll());
+            model.addAttribute("categories", categoryRepository.findAll());
+            return "create_advert";
+        }
         User user = getUser();
         advert.setUser(user);
         advert.setDateOfCreation(LocalDate.now());
@@ -86,11 +87,27 @@ public class UserController {
         return "redirect:/my/advert";
     }
 
+    @PostMapping("/advert/{id}/book")
+    public String book(@Validated @ModelAttribute("advert") Advert advert) {
+        User user = getUser();
+        long userId = user.getId();
+        long advertId = advert.getId();
+        advertRepository.updateBook(userId, advertId);
+        return "redirect:/advert/{id}";
+    }
+
     @GetMapping("my/advert")
     public String getAdvert(Model model) {
         User user = getUser();
         model.addAttribute("adverts", advertRepository.findAllByUserId(user.getId()));
         return "my_advert";
+    }
+
+    @GetMapping("my/book")
+    public String getBook(Model model) {
+        User user = getUser();
+        model.addAttribute("adverts", advertRepository.findAdvertsByBookId(user.getId()));
+        return "my_book";
     }
 
     private User getUser() {

@@ -1,6 +1,8 @@
 package com.knubisoft.mypetproject.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.*;
 
@@ -20,12 +22,16 @@ public class Advert {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotNull(message = "Це поле не можу бути пустим")
+    @NotEmpty(message = "Це поле не можу бути пустим")
     private String name;
 
     @ManyToOne
     private Category category;
 
-    private int price;
+    @NotNull(message = "Це поле не можу бути пустим")
+    @NotEmpty(message = "Це поле не можу бути пустим")
+    private String price;
 
     @ManyToOne
     private City city;
@@ -34,12 +40,14 @@ public class Advert {
 
     @ManyToOne
     private User user;
-
     @Column(name = "image_path")
     private String imagePath;
 
     @Column(name = "date_of_creation")
     private LocalDate dateOfCreation;
+
+    @ManyToOne
+    private User book;
 
 
     @Transient

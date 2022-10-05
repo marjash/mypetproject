@@ -67,6 +67,11 @@
 <body>
 <div class="login-form">
     <form th:action="@{/login}" id="loginForm" method="post">
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">
+                <span th:text="#{login.error}"></span>
+            </div>
+        </div>
         <h2 class="text-center">Sign in</h2>
         <div class="form-group">
             <div class="input-group">

@@ -26,6 +26,7 @@ public class AdvertController {
     @Autowired
     CityRepository cityRepository;
 
+
     @GetMapping("/advert/{id}/delete")
     public String delete(@PathVariable("id") long id) {
         advertRepository.deleteById(id);
@@ -35,6 +36,7 @@ public class AdvertController {
     @GetMapping("/advert/{id}")
     public String getAdvert(@PathVariable("id") long id, Model model) {
         Optional<Advert> byId = advertRepository.findById(id);
+        List<Advert> adverts = advertRepository.findAllAdverts();
         model.addAttribute("advert", byId);
         return "advert_info";
     }
@@ -43,7 +45,7 @@ public class AdvertController {
     public String allAdverts(Model model, String keyword, String categoryName, String cityName) {
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("cities", cityRepository.findAll());
-        List<Advert> adverts = advertRepository.findAll();
+        List<Advert> adverts = advertRepository.findAllAdverts();
         if (keyword != null && !keyword.isEmpty())
             adverts = advertRepository.findByAdvertName(keyword);
         if (categoryName != null && !categoryName.isEmpty())

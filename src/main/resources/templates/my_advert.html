@@ -36,7 +36,7 @@
             th:onclick="'window.location.href = \'' + @{/advert/{id}(id=${advert.id})} + '\''">
             <td class="w-25">
                 <img th:src="@{${advert.getFirstPhoto()}}" class="img-fluid img-thumbnail"></td>
-            <td th:text="${advert.getName()}">
+            <td class="name" th:text="${advert.getName()}">
             </td>
             <td th:text="${advert.category.getName()}"></td>
             <td th:text="${advert.city.getName()}"></td>
