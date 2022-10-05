@@ -88,7 +88,7 @@ public class UserController {
     }
 
     @PostMapping("/advert/{id}/book")
-    public String book(@Validated @ModelAttribute("advert") Advert advert) {
+    public String book(@ModelAttribute("advert") Advert advert) {
         User user = getUser();
         long userId = user.getId();
         long advertId = advert.getId();
