@@ -1,6 +1,7 @@
 package com.knubisoft.mypetproject.repository;
 
 import com.knubisoft.mypetproject.model.Advert;
+import com.knubisoft.mypetproject.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -43,5 +44,8 @@ public interface AdvertRepository extends JpaRepository<Advert, Long> {
 
     @Query(value = "select * from advert where book is null", nativeQuery = true)
     List<Advert> findAllAdverts();
+
+    @Query(value = "select book from advert where id = :id", nativeQuery = true)
+    Long getBookUser(@Param("id") long id);
 
 }

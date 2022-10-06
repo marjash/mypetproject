@@ -1,6 +1,7 @@
 package com.knubisoft.mypetproject.controller;
 
 import com.knubisoft.mypetproject.model.Advert;
+import com.knubisoft.mypetproject.model.User;
 import com.knubisoft.mypetproject.repository.AdvertRepository;
 import com.knubisoft.mypetproject.repository.CategoryRepository;
 import com.knubisoft.mypetproject.repository.CityRepository;
@@ -36,8 +37,11 @@ public class AdvertController {
     @GetMapping("/advert/{id}")
     public String getAdvert(@PathVariable("id") long id, Model model) {
         Optional<Advert> byId = advertRepository.findById(id);
-        List<Advert> adverts = advertRepository.findAllAdverts();
+        Long bookUser = null;
+        if (advertRepository.getBookUser(id) != null)
+           bookUser  = advertRepository.getBookUser(id);
         model.addAttribute("advert", byId);
+        model.addAttribute("bookUser", bookUser);
         return "advert_info";
     }
 

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Advert info</title>
     <style>
         .carousel {
-            margin: 20px;
+            padding-top: 50px;
             width: 600px;
             height: 400px;
         }
@@ -13,13 +13,14 @@
         h2 {
             text-align: center;
         }
-        h6{
+
+        h6 {
             padding-top: 10px;
             padding-bottom: 10px;
         }
 
         .bord {
-            padding-top: 100px;
+            padding-top: 50px;
         }
     </style>
 </head>
@@ -65,9 +66,11 @@
                 <div class="card-footer text-muted">
                     <p th:text="'Опубліковано ' + ${advert.get().getDateOfCreation()}" class="card-text"></p>
                 </div>
-                <form class="card text-center" th:action="@{|/advert/${advert.get().getId()}/book|}" method="post">
-                    <button class="btn btn-dark" type="submit">Бронювати</button>
-                </form>
+                <div th:if="${bookUser == null}">
+                    <form class="card text-center" th:action="@{|/advert/${advert.get().getId()}/book|}" method="post">
+                        <button class="btn btn-dark" type="submit">Бронювати</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
