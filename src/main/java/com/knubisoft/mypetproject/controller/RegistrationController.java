@@ -4,6 +4,7 @@ import com.knubisoft.mypetproject.model.User;
 import com.knubisoft.mypetproject.repository.UserRepository;
 import com.knubisoft.mypetproject.security.RegistrationForm;
 import com.knubisoft.mypetproject.service.CityServiceImpl;
+import com.knubisoft.mypetproject.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +25,7 @@ import java.util.Map;
 public class RegistrationController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserServiceImpl userService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -34,7 +35,7 @@ public class RegistrationController {
     @GetMapping
     public String registerForm(@ModelAttribute("user") User user, Model model){
         model.addAttribute("cities", cityService.getAll());
-        return "reg";
+        return "registration";
     }
 
     @PostMapping
@@ -42,29 +43,10 @@ public class RegistrationController {
                                        Model model){
         if (bindingResult.hasErrors()) {
             model.addAttribute("cities", cityService.getAll());
-            return "reg";
+            return "registration";
         }
         user.setDateOfRegistration(LocalDate.now());
-        userRepository.save(user.toUser(passwordEncoder));
+        userService.save(user.toUser(passwordEncoder));
         return "redirect:/login";
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
-    }
-
-    public RegistrationController(
-            UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 }

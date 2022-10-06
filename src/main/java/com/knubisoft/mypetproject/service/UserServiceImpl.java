@@ -9,14 +9,21 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public User save(User user) {
-        return userRepository.save(user);
+    public void save(User user) {
+        if (emailExists(user.getEmail()))
+            throw new IllegalArgumentException("There is an account with that email address: "
+                    + user.getEmail());
+        userRepository.save(user);
+    }
+
+    private boolean emailExists(String email) {
+        return userRepository.findByEmail(email) != null;
     }
 
     @Override
