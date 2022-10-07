@@ -110,7 +110,7 @@ public class UserController {
         return "my_book";
     }
 
-    public User getUser() {
+    private User getUser() {
         User user = null;
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();

@@ -10,4 +10,6 @@ public interface UserService {
     Optional<User> readById(long id);
     List<User> getAll();
 
+    User findByEmail(String email);
+
 }

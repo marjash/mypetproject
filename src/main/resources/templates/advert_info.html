@@ -66,15 +66,39 @@
                 <div class="card-footer text-muted">
                     <p th:text="'Опубліковано ' + ${advert.get().getDateOfCreation()}" class="card-text"></p>
                 </div>
-                <div th:if="${bookUser == null}">
-                    <form class="card text-center" th:action="@{|/advert/${advert.get().getId()}/book|}" method="post">
-                        <button class="btn btn-dark" type="submit">Бронювати</button>
-                    </form>
+                <div th:if="${bookUser == null and user != null}">
+                    <div th:if="${user.getId() != advert.get().getUser().getId()}">
+                        <form class="card text-center" th:action="@{|/advert/${advert.get().getId()}/book|}"
+                              method="post">
+                            <button class="btn btn-dark" type="submit">Бронювати</button>
+                        </form>
+                    </div>
+                    <div th:if="${user.getId() == advert.get().getUser().getId()}">
+                        <form class="card text-center" th:action="@{|/advert/${advert.get().getId()}/delete|}">
+                            <button class="btn btn-warning" type="submit">Видалити оголошення</button>
+                        </form>
+                    </div>
                 </div>
+                <div th:if="${bookUser != null and user != null}">
+                    <div th:if="${user.getId() == bookUser}">
+                        <form class="card text-center" th:action="@{|/advert/${advert.get().getId()}/book/cancel|}">
+                            <button class="btn btn-warning" type="submit">Скасувати бронювання</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card text-center" th:if="${user == null}">
+                    <p>Увійдіть на сайт, щоб забронювати</p>
+                    <a th:href="@{/login}"
+                       class="btn btn-success ">Увійти
+                    </a>
+                </div>
+                <!--                </div>-->
+                <!--                <div sec:authorize="isAuthenticated()">-->
+                <!--                    Welcome, <span sec:authentication="id">Username</span>-->
+                <!--                </div>-->
             </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>

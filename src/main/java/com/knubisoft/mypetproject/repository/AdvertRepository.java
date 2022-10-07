@@ -48,4 +48,9 @@ public interface AdvertRepository extends JpaRepository<Advert, Long> {
     @Query(value = "select book from advert where id = :id", nativeQuery = true)
     Long getBookUser(@Param("id") long id);
 
+    @Transactional
+    @Modifying
+    @Query(value = "update advert set book = null where id = :id", nativeQuery = true)
+    void cancelBook(@Param("id") long id);
+
 }

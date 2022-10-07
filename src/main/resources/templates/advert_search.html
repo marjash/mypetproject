@@ -67,14 +67,10 @@
             <td th:text="${advert.category.getName()}"></td>
             <td th:text="${advert.city.getName()}"></td>
             <td class="price" th:text="${advert.getPrice()} + ' ' + грн"></td>
-            <td>
-                <a th:href="@{|/advert/${advert.getId()}/delete|}"
-                   class="btn btn-danger">Видалити</a>
-            </td>
         </tr>
         </tbody>
     </table>
-    <a th:href="@{/create/advert}"
+    <a th:href="@{/my/create/advert}"
        class="btn btn-success">Створити оголошення</a>
 </div>
 </body>

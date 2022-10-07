@@ -15,7 +15,7 @@
 <form th:action="@{/my/create/advert}" th:object="${advert}" method="post"
       enctype="multipart/form-data">
     <div class="form-group">
-        <label for="advert-name" class="col-sm-3 control-label">Назва товару</label>
+        <label for="advert-name" class="col-sm-3 control-label">Назва товару*</label>
         <div class="col-sm-4">
             <input type="text" id="advert-name" name="name" class="form-control" autofocus>
         </div>
@@ -60,7 +60,7 @@
         </div>
     </div>
     <div class="mb-3">
-        <label for="image" class="form-label">Multiple files input example</label>
+        <label for="image" class="form-label">Виберіть фото</label>
         <input type="file" multiple id="image" name="image">
     </div>
     <div id="preview"></div>
