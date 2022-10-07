@@ -15,20 +15,20 @@ import java.util.List;
 @Data
 public class RegistrationForm {
 
-    @NotNull(message = "Ім'я не можу бути пустим")
-    @NotEmpty(message = "Ім'я не можу бути пустим")
+    @NotNull(message = "Ім'я не можe бути пустим")
+    @NotEmpty(message = "Ім'я не можe бути пустим")
     private String name;
-    @NotNull(message = "Прізвище не можу бути пустим")
-    @NotEmpty(message = "Прізвище не можу бути пустим")
+    @NotNull(message = "Прізвище не можe бути пустим")
+    @NotEmpty(message = "Прізвище не можe бути пустим")
     private String surname;
 
-    @NotNull(message = "Імейл не можу бути пустим")
+    @NotNull(message = "Імейл не можe бути пустим")
     @NotEmpty(message = "Імейл не можу бути пустим")
     @Email
     private String email;
 
     @NotNull(message = "Пароль не можу бути пустим")
-    @NotEmpty(message = "Пароль не можу бути пустим")
+    @NotEmpty(message = "Пароль не можe бути пустим")
     private String password;
     private String dateOfBirth;
     private String phone;
