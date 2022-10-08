@@ -4,94 +4,103 @@
     <title>Creating</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .form {
+            padding-left: 20px;
+            padding-top: 20px;
+        }
+    </style>
 </head>
 <body>
 <div>
     <div th:insert="header :: head">
     </div>
 </div>
-<h2>Створити оголошення</h2>
-<form th:action="@{/my/create/advert}" th:object="${advert}" method="post"
-      enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="advert-name" class="col-sm-3 control-label">Назва товару*</label>
-        <div class="col-sm-4">
-            <input type="text" id="advert-name" name="name" class="form-control" autofocus>
-        </div>
-        <div style="color: #df4930" th:if="${#fields.hasErrors('name')}"
-             th:errors="*{name}">
-        </div>
+<div class="form">
+    <h2>Створити оголошення</h2>
+    <form th:action="@{/my/create/advert}" th:object="${advert}" method="post"
+          enctype="multipart/form-data">
         <div class="form-group">
-            <label for="category" class="col-sm-3 control-label">Категорія*</label>
+            <label for="advert-name" class="col-sm-3 control-label">Назва товару*</label>
             <div class="col-sm-4">
-                <select id="category" name="category" class="form-select">
+                <input type="text" id="advert-name" name="name" class="form-control" autofocus>
+            </div>
+            <div style="color: #df4930" th:if="${#fields.hasErrors('name')}"
+                 th:errors="*{name}">
+            </div>
+            <div class="form-group">
+                <label for="category" class="col-sm-3 control-label">Категорія*</label>
+                <div class="col-sm-4">
+                    <select id="category" name="category" class="form-select">
                   <span th:each="category : ${categories}">
                     <option th:text="${category.getName()}"
                             th:value="${category.getId()}"></option>
                   </span>
-                </select>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="price" class="col-sm-3 control-label">Ціна*</label>
-            <div class="col-sm-4">
-                <input type="text" id="price" name="price" class="form-control" autofocus>
+            <div class="form-group">
+                <label for="price" class="col-sm-3 control-label">Ціна*</label>
+                <div class="col-sm-4">
+                    <input type="text" id="price" name="price" class="form-control" autofocus>
+                </div>
+                <div style="color: #df4930" th:if="${#fields.hasErrors('price')}"
+                     th:errors="*{price}">
+                </div>
             </div>
-            <div style="color: #df4930" th:if="${#fields.hasErrors('price')}"
-                 th:errors="*{price}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="city" class="col-sm-3 control-label">Місто*</label>
-            <div class="col-sm-4">
-                <select id="city" name="city" class="form-select">
+            <div class="form-group">
+                <label for="city" class="col-sm-3 control-label">Місто*</label>
+                <div class="col-sm-4">
+                    <select id="city" name="city" class="form-select">
                   <span th:each="city : ${cities}">
                     <option th:text="${city.getName()}"
                             th:value="${city.getId()}"></option>
                   </span>
-                </select>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="phone" class="col-sm-3 control-label">Телефон</label>
-            <div class="col-sm-4">
-                <input type="number" id="phone" name="phone" class="form-control" autofocus>
+            <div class="form-group">
+                <label for="phone" class="col-sm-3 control-label">Телефон</label>
+                <div class="col-sm-4">
+                    <input type="number" id="phone" name="phone" class="form-control" autofocus>
+                </div>
             </div>
-        </div>
-        <div class="mb-3">
-            <label for="image" class="form-label">Виберіть фото</label>
-            <input type="file" multiple id="image" name="image">
-        </div>
-        <h6> <small class="text-muted">* Обов'язкові поля</small>
-        </h6>
-        <div id="preview"></div>
-        <div class="mt-4 pt-2">
-            <input type="submit" class="btn btn-success" value="Зберегти"/>
-            <input type="reset" class="btn btn-danger" value="Очистити"/>
-        </div>
-        <script>
-            function previewImages() {
+            <div class="mb-3">
+                <label for="image" class="form-label">Виберіть фото</label>
+                <input type="file" multiple id="image" name="image">
+            </div>
+            <h6><small class="text-muted">* Обов'язкові поля</small>
+            </h6>
+            <div id="preview"></div>
+            <div class="mt-4 pt-2">
+                <input type="submit" class="btn btn-success" value="Зберегти"/>
+                <input type="reset" class="btn btn-danger" value="Очистити"/>
+            </div>
+            <script>
+                function previewImages() {
 
-                var $preview = $('#preview').empty();
-                if (this.files) $.each(this.files, readAndPreview);
+                    var $preview = $('#preview').empty();
+                    if (this.files) $.each(this.files, readAndPreview);
 
-                function readAndPreview(i, file) {
+                    function readAndPreview(i, file) {
 
-                    if (!/\.(jpe?g|png|gif|webp)$/i.test(file.name)) {
-                        return alert(file.name + " is not an image");
+                        if (!/\.(jpe?g|png|gif|webp)$/i.test(file.name)) {
+                            return alert(file.name + " is not an image");
+                        }
+
+                        var reader = new FileReader();
+
+                        $(reader).on("load", function () {
+                            $preview.append($("<img/>", {src: this.result, height: 100}));
+                        });
+                        reader.readAsDataURL(file);
                     }
-
-                    var reader = new FileReader();
-
-                    $(reader).on("load", function () {
-                        $preview.append($("<img/>", {src: this.result, height: 100}));
-                    });
-                    reader.readAsDataURL(file);
                 }
-            }
 
-            $('#image').on("change", previewImages);
-        </script>
-</form>
+                $('#image').on("change", previewImages);
+            </script>
+        </div>
+    </form>
+</div>
 </body>
 </html>

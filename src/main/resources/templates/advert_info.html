@@ -59,7 +59,7 @@
             <div class="card-body text-dark">
                 <h5 th:text="${advert.get().getPrice()} + ' ' + грн" class="card-title"></h5>
                 <h6 th:text="${advert.get().getCity().getName()}" class="card-text"></h6>
-                <p>
+                <p sec:authorize="isAuthenticated()">
                     <strong th:text="${advert.get().getPhone()}" class="card-text"></strong>
                 </p>
                 <p th:text="${advert.get().getCategory().getName()}" class="card-text text-muted"></p>
@@ -85,6 +85,9 @@
                             <button class="btn btn-warning" type="submit">Скасувати бронювання</button>
                         </form>
                     </div>
+                    <div th:if="${user.getId() != bookUser}">
+                        <p class="text-warning card text-center bg-dark" th:text="'Зрезервовано: ' + ${name}"></p>
+                    </div>
                 </div>
                 <div class="card text-center" th:if="${user == null}">
                     <p>Увійдіть на сайт, щоб забронювати</p>
@@ -92,13 +95,8 @@
                        class="btn btn-success ">Увійти
                     </a>
                 </div>
-                <!--                </div>-->
-                <!--                <div sec:authorize="isAuthenticated()">-->
-                <!--                    Welcome, <span sec:authentication="id">Username</span>-->
-                <!--                </div>-->
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>

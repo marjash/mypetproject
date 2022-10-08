@@ -52,11 +52,16 @@ public class AdvertController {
         Optional<Advert> byId = advertRepository.findById(id);
         Long bookUser = null;
         User user = getUser();
-        if (advertRepository.getBookUser(id) != null)
-           bookUser  = advertRepository.getBookUser(id);
+        String name = "";
+        if (advertRepository.getBookUser(id) != null) {
+            bookUser = advertRepository.getBookUser(id);
+            Optional<User> user2 = userService.readById(bookUser);
+            name = user2.get().getName();
+        }
         model.addAttribute("advert", byId);
         model.addAttribute("bookUser", bookUser);
         model.addAttribute("user", user);
+        model.addAttribute("name", name);
         return "advert_info";
     }
 
